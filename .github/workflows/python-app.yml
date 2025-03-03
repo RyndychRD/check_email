@@ -1,0 +1,41 @@
+name: Build Python Application
+
+on:
+  push:
+    branches:
+      - main  # Запускать сборку при пуше в ветку main
+  pull_request:
+    branches:
+      - main  # Запускать сборку при пул-реквесте в ветку main
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]  # Сборка для Ubuntu и Windows
+        python-version: ["3.9"]  # Версия Python
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Клонирование репозитория
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Build executable
+        run: |
+          pyinstaller --onefile --noconsole check_email.py
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: check_email-${{ matrix.os }}
+          path: dist/
