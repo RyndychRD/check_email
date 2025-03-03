@@ -1,0 +1,6 @@
+{
+    "IMAP_SERVER": "imap.yandex.com",
+    "EMAIL": "YOUR_NAME@socrat.marketing",
+    "PASSWORD": "",
+    "CHECK_INTERVAL": 300
+}
