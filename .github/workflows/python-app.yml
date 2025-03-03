@@ -32,10 +32,10 @@ jobs:
 
       - name: Build executable
         run: |
-          pyinstaller --onefile --noconsole check_email.py
+          pyinstaller --onefile --noconsole check_mail.py
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: check_email-${{ matrix.os }}
+          name: check_mail-${{ matrix.os }}
           path: dist/
